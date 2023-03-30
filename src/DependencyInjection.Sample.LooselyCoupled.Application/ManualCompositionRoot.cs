@@ -8,17 +8,17 @@ using Microsoft.Extensions.Logging;
 
 namespace DependencyInjection.Sample.LooselyCoupled.Application
 {
-    internal class CompositionRoot
+    internal class ManualCompositionRoot
     {
         public ListProductsUi ProductsUi { get; private set; }
 
-        public async Task<CompositionRoot> Build()
+        public async Task<ManualCompositionRoot> ConfigureServices()
         {
-            // build configuration
+            // Build configuration
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
-            // initialize logging
+            // Configure logging
             var loggerFactory = LoggerFactory.Create(builder =>
             {
                 builder
@@ -26,8 +26,6 @@ namespace DependencyInjection.Sample.LooselyCoupled.Application
                     .AddConsole();
             });
 
-
-            // create and configure services
             var dbEndpoint = configuration["DbEndpoint"];
             var dbAccessKey = configuration["DbAccessKey"];
             var cosmosClientInitializer = new CosmosClientInitializer(dbEndpoint, dbAccessKey);
