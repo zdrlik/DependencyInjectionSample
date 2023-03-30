@@ -2,12 +2,18 @@
 {
     public class DefaultDiscountPolicyProvider : IDiscountPolicyProvider
     {
+        private readonly decimal _preferredCustomerDiscount;
 
-        private readonly IDiscountPolicy _preferredCustomerDiscountPolicy = new PreferredCustomerDiscountPolicy(0.95m);
-        private readonly IDiscountPolicy _noDiscountPolicy = new NoDiscountPolicy();
+        private readonly IDiscountPolicy _preferredCustomerDiscountPolicy;
+        private readonly IDiscountPolicy _noDiscountPolicy;
 
-        public DefaultDiscountPolicyProvider()
+        public DefaultDiscountPolicyProvider(decimal preferredCustomerDiscount = 0.95m)
         {
+            if (preferredCustomerDiscount <= 0.1m)
+                throw new ArgumentOutOfRangeException(nameof(preferredCustomerDiscount));
+
+            _preferredCustomerDiscountPolicy = new PreferredCustomerDiscountPolicy(preferredCustomerDiscount);
+            _noDiscountPolicy = new NoDiscountPolicy();
         }
 
         public IDiscountPolicy GetDiscountPolicy(User forUser)
