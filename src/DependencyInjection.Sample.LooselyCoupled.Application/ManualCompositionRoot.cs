@@ -14,11 +14,9 @@ namespace DependencyInjection.Sample.LooselyCoupled.Application
 
         public async Task<ManualCompositionRoot> ConfigureServices()
         {
-            // Build configuration
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
-            // Configure logging
             var loggerFactory = LoggerFactory.Create(builder =>
             {
                 builder

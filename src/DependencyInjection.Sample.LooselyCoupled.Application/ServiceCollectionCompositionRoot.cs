@@ -8,6 +8,7 @@ using DependencyInjection.Sample.LooselyCoupled.Core;
 using DependencyInjection.Sample.LooselyCoupled.Core.DataAccess;
 using DependencyInjection.Sample.LooselyCoupled.Core.DataAccess.CosmosDb;
 using DependencyInjection.Sample.LooselyCoupled.Core.Discounts;
+using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -33,15 +34,16 @@ namespace DependencyInjection.Sample.LooselyCoupled.Application
             serviceCollection.AddSingleton<IProductService, ProductService>();
             serviceCollection.AddSingleton<ListProductsUi>();
 
-            var dbEndpoint = configuration["DbEndpoint"];
-            var dbAccessKey = configuration["DbAccessKey"];
-            var cosmosClientInitializer = new CosmosClientInitializer(dbEndpoint, dbAccessKey);
-            var cosmosDbClient = await cosmosClientInitializer.CreateAndInitializeAsync(new List<(string, string)>
-            {
-                ("DependencyInjectionSample", "Products")
-            });
-            serviceCollection.AddSingleton(cosmosDbClient);
+            var cosmosDbClient = await AddCosmosDbClient(configuration, serviceCollection);
+            AddProductRepository(serviceCollection, cosmosDbClient, configuration);
 
+            this.ProductsUi = serviceCollection.BuildServiceProvider().GetService<ListProductsUi>();
+            return this;
+        }
+
+        private static void AddProductRepository(IServiceCollection serviceCollection, CosmosClient cosmosDbClient,
+            IConfigurationRoot configuration)
+        {
             serviceCollection.AddSingleton<IProductRepository>(factory =>
             {
                 IProductRepository productRepository = new CosmosProductRepository(cosmosDbClient);
@@ -56,10 +58,19 @@ namespace DependencyInjection.Sample.LooselyCoupled.Application
                     return productRepository;
                 }
             });
+        }
 
-            var serviceProvider = serviceCollection.BuildServiceProvider();
-            this.ProductsUi = serviceProvider.GetService<ListProductsUi>(); 
-            return this;
+        private static async Task<CosmosClient> AddCosmosDbClient(IConfigurationRoot configuration, IServiceCollection serviceCollection)
+        {
+            var dbEndpoint = configuration["DbEndpoint"];
+            var dbAccessKey = configuration["DbAccessKey"];
+            var cosmosClientInitializer = new CosmosClientInitializer(dbEndpoint, dbAccessKey);
+            var cosmosDbClient = await cosmosClientInitializer.CreateAndInitializeAsync(new List<(string, string)>
+            {
+                ("DependencyInjectionSample", "Products")
+            });
+            serviceCollection.AddSingleton(cosmosDbClient);
+            return cosmosDbClient;
         }
 
         private static bool IsDebugRun(IConfigurationRoot configuration)

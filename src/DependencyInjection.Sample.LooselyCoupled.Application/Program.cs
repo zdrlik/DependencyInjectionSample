@@ -4,8 +4,8 @@
     {
         static async Task Main(string[] args)
         {
-            // var services = (await new ManualCompositionRoot().ConfigureServices());
-            var services = (await new ServiceCollectionCompositionRoot().ConfigureServices());
+            var services = (await new ManualCompositionRoot().ConfigureServices());
+            // var services = (await new ServiceCollectionCompositionRoot().ConfigureServices());
             var productsUi = services.ProductsUi;
             await productsUi.ShowProducts();
 
