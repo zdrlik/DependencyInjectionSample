@@ -15,12 +15,13 @@ namespace DependencyInjection.Sample.LooselyCoupled.Application.Interceptors
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task<IEnumerable<Product>> GetProductsAsync()
+        public async Task<IReadOnlyList<Product>> GetProductsAsync()
         {
-            _logger.LogDebug($"{nameof(GetProductsAsync)} input");            
-            var products = await _productRepository.GetProductsAsync();
-            _logger.LogDebug($"{nameof(GetProductsAsync)} output: {products.Count()} products");
-            return products;
+            var result = await _productRepository.GetProductsAsync();
+            
+            _logger.LogDebug($"Retrieved {result.Count} products");
+            
+            return result;
         }
     }
 }

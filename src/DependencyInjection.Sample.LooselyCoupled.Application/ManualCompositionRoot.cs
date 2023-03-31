@@ -37,7 +37,7 @@ namespace DependencyInjection.Sample.LooselyCoupled.Application
                 var logger = loggerFactory.CreateLogger<ProductRepositoryLoggingInterceptor>();
                 productRepository = new ProductRepositoryLoggingInterceptor(productRepository, logger);
             }
-            var discountPolicyProvider = new DefaultDiscountPolicyProvider();
+            var discountPolicyProvider = new DefaultDiscountPolicyProvider(loggerFactory);
             var userContextAccessor = new LoggedInUserAccessor();
             var productService = new ProductService(productRepository, discountPolicyProvider, userContextAccessor);
 

@@ -1,10 +1,8 @@
-
 using DependencyInjection.Sample.LooselyCoupled.Core.Discounts;
 using DependencyInjection.Sample.LooselyCoupled.Core;
 using DependencyInjection.Sample.LooselyCoupled.Core.DataAccess;
 using DependencyInjection.Sample.LooselyCoupled.Core.DataAccess.CosmosDb;
 using Microsoft.Azure.Cosmos;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace DependencyInjection.Sample.LooselyCoupled.WebApi
 {
@@ -46,6 +44,7 @@ namespace DependencyInjection.Sample.LooselyCoupled.WebApi
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
+            serviceCollection.AddSingleton<IConfiguration>(configuration);
 
             serviceCollection.AddLogging(builder => builder
                 .AddFilter("*", LogLevel.Debug)

@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DependencyInjection.Sample.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyInjection.Sample.LooselyCoupled.WebApi", "DependencyInjection.Sample.LooselyCoupled.WebApi\DependencyInjection.Sample.LooselyCoupled.WebApi.csproj", "{DABA7D1E-5971-4D8A-A601-B80B1E0BBAC9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyInjection.Sample.TightlyCoupled.WebApi", "DependencyInjection.Sample.TightlyCoupled.WebApi\DependencyInjection.Sample.TightlyCoupled.WebApi.csproj", "{A9D5847C-AEDC-4286-891A-9FE167035308}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{DABA7D1E-5971-4D8A-A601-B80B1E0BBAC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DABA7D1E-5971-4D8A-A601-B80B1E0BBAC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DABA7D1E-5971-4D8A-A601-B80B1E0BBAC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9D5847C-AEDC-4286-891A-9FE167035308}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9D5847C-AEDC-4286-891A-9FE167035308}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9D5847C-AEDC-4286-891A-9FE167035308}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9D5847C-AEDC-4286-891A-9FE167035308}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{4A37FE10-448E-4092-A0F3-6F7269216A34} = {4468154E-D932-4B6F-918D-23CD85793F79}
 		{755F7FBA-0CE7-41B9-88A6-A31460055A53} = {4468154E-D932-4B6F-918D-23CD85793F79}
 		{DABA7D1E-5971-4D8A-A601-B80B1E0BBAC9} = {4468154E-D932-4B6F-918D-23CD85793F79}
+		{A9D5847C-AEDC-4286-891A-9FE167035308} = {4DD27C45-DC1E-4169-B23F-9B54BFCB95A6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {57C11110-9D6B-4FC2-9879-6F6E82FAA10B}

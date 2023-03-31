@@ -1,4 +1,6 @@
-﻿namespace DependencyInjection.Sample.TightlyCoupled.Core
+﻿using System;
+
+namespace DependencyInjection.Sample.TightlyCoupled.Core
 {
     public static class UserContext
     {

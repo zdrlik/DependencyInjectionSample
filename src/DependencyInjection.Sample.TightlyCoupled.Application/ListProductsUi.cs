@@ -1,4 +1,7 @@
-﻿using DependencyInjection.Sample.TightlyCoupled.Core;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using DependencyInjection.Sample.TightlyCoupled.Core;
 
 namespace DependencyInjection.Sample.TightlyCoupled.Application
 {

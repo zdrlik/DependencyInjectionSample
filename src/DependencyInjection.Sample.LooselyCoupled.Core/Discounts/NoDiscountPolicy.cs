@@ -1,10 +1,21 @@
-﻿namespace DependencyInjection.Sample.LooselyCoupled.Core.Discounts
+﻿using Microsoft.Extensions.Logging;
+
+namespace DependencyInjection.Sample.LooselyCoupled.Core.Discounts
 {
     internal class NoDiscountPolicy : IDiscountPolicy
     {
-        public Product ApplyDiscount(Product product)
+        private readonly ILogger<NoDiscountPolicy> _logger;
+
+        public NoDiscountPolicy(ILogger<NoDiscountPolicy> logger)
         {
-            return product;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
+
+        public IEnumerable<Product> ApplyDiscount(IEnumerable<Product> products)
+        {
+            _logger.LogDebug("No discount applied");
+
+            return products;
         }
     }
 }

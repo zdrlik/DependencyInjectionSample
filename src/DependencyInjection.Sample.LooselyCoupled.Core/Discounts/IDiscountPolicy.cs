@@ -2,6 +2,6 @@
 {
     public interface IDiscountPolicy
     {
-        public Product ApplyDiscount(Product product);
+        public IEnumerable<Product> ApplyDiscount(IEnumerable<Product> product);
     }
 }

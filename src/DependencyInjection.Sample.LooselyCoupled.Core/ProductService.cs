@@ -27,8 +27,8 @@ namespace DependencyInjection.Sample.LooselyCoupled.Core
             var discountPolicy = _discountPolicyProvider.GetDiscountPolicy(currentUser);
 
             var products = await _productRepository.GetProductsAsync();
-            
-            return products.Select(p => discountPolicy.ApplyDiscount(p)).ToList();
+
+            return discountPolicy.ApplyDiscount(products).ToList();
         }
     }
 }

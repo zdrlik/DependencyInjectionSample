@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DependencyInjection.Sample.LooselyCoupled.Application.Interceptors;
+﻿using DependencyInjection.Sample.LooselyCoupled.Application.Interceptors;
 using DependencyInjection.Sample.LooselyCoupled.Core;
 using DependencyInjection.Sample.LooselyCoupled.Core.DataAccess;
 using DependencyInjection.Sample.LooselyCoupled.Core.DataAccess.CosmosDb;

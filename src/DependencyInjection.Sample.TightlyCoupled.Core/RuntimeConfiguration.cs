@@ -2,20 +2,26 @@
 
 namespace DependencyInjection.Sample.TightlyCoupled.Core
 {
-    public static class RuntimeConfiguration
+    public class RuntimeConfiguration
     {
-        public static IConfiguration AppSettings { get; }
-        public static string DbEndpoint { get; set; }
-        public static string DbAccessKey { get; set; }
+        private readonly string _dbEndpoint;
+        private readonly string _dbAccessKey;
 
-        static RuntimeConfiguration()
+        private static RuntimeConfiguration _instance;
+        
+        public static void Initialize(IConfiguration settings)
         {
-            AppSettings = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .Build();
+            _instance = new RuntimeConfiguration(settings);
+        }
 
-            DbEndpoint = AppSettings["DbEndpoint"];
-            DbAccessKey = AppSettings["DbAccessKey"];
+        public static string DbEndpoint => _instance._dbEndpoint;
+
+        public static string DbAccessKey => _instance._dbAccessKey;
+
+        private RuntimeConfiguration(IConfiguration settings)
+        {
+            _dbEndpoint = settings["DbEndpoint"];
+            _dbAccessKey = settings["DbAccessKey"];
         }
     }
 }

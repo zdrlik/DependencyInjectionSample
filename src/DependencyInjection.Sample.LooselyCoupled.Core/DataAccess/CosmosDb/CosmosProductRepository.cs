@@ -1,4 +1,5 @@
 ﻿using Microsoft.Azure.Cosmos;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace DependencyInjection.Sample.LooselyCoupled.Core.DataAccess.CosmosDb
@@ -10,18 +11,17 @@ namespace DependencyInjection.Sample.LooselyCoupled.Core.DataAccess.CosmosDb
         public CosmosProductRepository(CosmosClient cosmosClient)
         {
             if (cosmosClient == null) throw new ArgumentNullException(nameof(cosmosClient));
-
             _container = cosmosClient.GetContainer("DependencyInjectionSample", "Products");
         }
 
-        public async Task<IEnumerable<Product>> GetProductsAsync()
+        public async Task<IReadOnlyList<Product>> GetProductsAsync()
         {
             var query = "select * from c";
             var iterator = _container.GetItemQueryIterator<ProductEntity>(query);
             return await ReadProducts(iterator);
         }
 
-        private static async Task<IEnumerable<Product>> ReadProducts(FeedIterator<ProductEntity> iterator)
+        private async Task<IReadOnlyList<Product>> ReadProducts(FeedIterator<ProductEntity> iterator)
         {
             var result = new List<Product>();
             while (iterator.HasMoreResults)
@@ -35,7 +35,6 @@ namespace DependencyInjection.Sample.LooselyCoupled.Core.DataAccess.CosmosDb
                     Description = p.Name
                 }));
             }
-
             return result;
         }
 

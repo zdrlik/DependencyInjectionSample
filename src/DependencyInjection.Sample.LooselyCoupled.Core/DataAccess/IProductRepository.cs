@@ -2,6 +2,6 @@
 {
     public interface IProductRepository
     {
-        Task<IEnumerable<Product>> GetProductsAsync();
+        Task<IReadOnlyList<Product>> GetProductsAsync();
     }
 }
