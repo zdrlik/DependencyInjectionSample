@@ -14,7 +14,9 @@ namespace DependencyInjection.Sample.LooselyCoupled.Core
         private readonly IDiscountPolicyProvider _discountPolicyProvider;
         private readonly IUserContextAccessor _userContextAccessor;
 
-        public ProductService(IProductRepository productRepository, IDiscountPolicyProvider discountPolicyProvider, IUserContextAccessor userContextAccessor)
+        public ProductService(IProductRepository productRepository, 
+            IDiscountPolicyProvider discountPolicyProvider, 
+            IUserContextAccessor userContextAccessor)
         {
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
             _discountPolicyProvider = discountPolicyProvider ?? throw new ArgumentNullException(nameof(discountPolicyProvider));
@@ -23,10 +25,10 @@ namespace DependencyInjection.Sample.LooselyCoupled.Core
 
         public async Task<IReadOnlyList<Product>> GetProducts()
         {
+            var products = await _productRepository.GetProductsAsync();
+
             var currentUser = _userContextAccessor.GetCurrentUser();
             var discountPolicy = _discountPolicyProvider.GetDiscountPolicy(currentUser);
-
-            var products = await _productRepository.GetProductsAsync();
 
             return discountPolicy.ApplyDiscount(products).ToList();
         }

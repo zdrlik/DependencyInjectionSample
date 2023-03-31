@@ -5,13 +5,13 @@ using Microsoft.Extensions.Logging;
 
 namespace DependencyInjection.Sample.TightlyCoupled.Core
 {
-    internal class ProductRepository
+    internal class CosmosProductRepository
     {
         private readonly CosmosClient _cosmosClient;
         private readonly Container _container;
-        private readonly ILogger<ProductRepository> _logger;
+        private readonly ILogger<CosmosProductRepository> _logger;
 
-        public ProductRepository()
+        public CosmosProductRepository()
         {
             var endpoint = RuntimeConfiguration.DbEndpoint;
             var accessKey = RuntimeConfiguration.DbAccessKey;
@@ -19,7 +19,7 @@ namespace DependencyInjection.Sample.TightlyCoupled.Core
             _cosmosClient = CreateAndInitializeDbClient(endpoint, accessKey).GetAwaiter().GetResult();
             _container = _cosmosClient.GetContainer("DependencyInjectionSample", "Products");
 
-            _logger = LogManager.GetLogger<ProductRepository>();
+            _logger = LogManager.GetLogger<CosmosProductRepository>();
         }
 
         public async Task<IReadOnlyList<Product>> GetProducts()

@@ -6,12 +6,12 @@ namespace DependencyInjection.Sample.TightlyCoupled.Core
 {
     public class ProductService
     {
-        private readonly ProductRepository _productRepository;
+        private readonly CosmosProductRepository _productRepository;
         private readonly ILogger<ProductService> _logger;
 
         public ProductService()
         {
-            _productRepository = new ProductRepository();
+            _productRepository = new CosmosProductRepository();
             _logger = LogManager.GetLogger<ProductService>();
         }
         
