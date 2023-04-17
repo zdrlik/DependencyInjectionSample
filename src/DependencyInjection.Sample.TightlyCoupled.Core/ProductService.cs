@@ -22,7 +22,7 @@ namespace DependencyInjection.Sample.TightlyCoupled.Core
             var discount = UserContext.GetCurrentUser().IsPreferredCustomer ? 0.95m : 1;
             ApplyDiscount(result, discount);
 
-            _logger.LogDebug($"Applied {discount} discount");
+            _logger.LogDebug($"Returned {result.Count} items.");
 
             return result;
         }
